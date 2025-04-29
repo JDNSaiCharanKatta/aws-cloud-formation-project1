@@ -34,3 +34,10 @@ Upload all templates to S3 and deploy the `rootstack.yaml` via the console or CL
 
 > 💡 Ensure DB password does not contain invalid characters like `/`, `@`, `"`, or spaces.
 
+![image](https://github.com/user-attachments/assets/d90a8907-a8cd-4a89-aae2-a95b8c8cf140)
+
+
+
+
+
+
