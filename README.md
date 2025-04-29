@@ -58,3 +58,9 @@ Upload all templates to S3 and deploy the `rootstack.yaml` via the console or CL
 
 
 ![image](https://github.com/user-attachments/assets/5c474807-01c3-4d51-aa1b-608415101153)
+
+
+
+
+![image](https://github.com/user-attachments/assets/c2c2b57f-d6ce-4347-ad74-852010d1fe28)
+
