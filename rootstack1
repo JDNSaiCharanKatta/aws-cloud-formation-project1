@@ -1,0 +1,124 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Parent Stack for deploying VPC, EC2, ALB, ASG, RDS, and S3
+
+Parameters:
+  EnvironmentName:
+    Type: String
+    Default: "production"
+    Description: The environment name (e.g., production, dev)
+  VpcCIDR:
+    Type: String
+    Default: 10.0.0.0/16
+    Description: CIDR block for the VPC
+  PublicSubnet1CIDR:
+    Type: String
+    Default: 10.0.1.0/24
+    Description: CIDR block for Public Subnet 1
+  PublicSubnet2CIDR:
+    Type: String
+    Default: 10.0.2.0/24
+    Description: CIDR block for Public Subnet 2
+  PrivateSubnet1CIDR:
+    Type: String
+    Default: 10.0.3.0/24
+    Description: CIDR block for Private Subnet 1
+  PrivateSubnet2CIDR:
+    Type: String
+    Default: 10.0.4.0/24
+    Description: CIDR block for Private Subnet 2
+  DBInstanceClass:
+    Type: String
+    Default: db.t3.micro
+    Description: RDS instance type
+    AllowedValues:
+      - db.t3.micro
+      - db.t3.small
+      - db.t3.medium
+      - db.m5.large    
+  DBUsername:
+    Type: String
+    Default: admin
+    Description: Database username
+  DBPassword:
+    Type: String
+    NoEcho: true
+    Description: Database password
+  DBName:
+    Type: String
+    Default: mydatabase
+    Description: Database name
+  InstanceType:
+    Type: String
+    Default: t2.micro
+    Description: EC2 instance type
+    AllowedValues:
+      - t2.micro
+      - t2.small
+      - t2.medium
+      - t3.micro
+      - t3.small
+      - t3.medium
+  KeyName:
+    Type: AWS::EC2::KeyPair::KeyName
+    Description: Name of the SSH keypair
+
+Resources:
+  # Nested Stack for VPC
+  VPCStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://poc-saicharan.s3.ap-south-1.amazonaws.com/vpcstack.yaml
+      Parameters:
+        EnvironmentName: !Ref EnvironmentName
+        VpcCIDR: !Ref VpcCIDR
+        PublicSubnet1CIDR: !Ref PublicSubnet1CIDR
+        PublicSubnet2CIDR: !Ref PublicSubnet2CIDR
+        PrivateSubnet1CIDR: !Ref PrivateSubnet1CIDR
+        PrivateSubnet2CIDR: !Ref PrivateSubnet2CIDR
+
+  # Nested Stack for S3
+  S3Stack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://poc-saicharan.s3.ap-south-1.amazonaws.com/s3bucket.yaml
+      Parameters:
+        EnvironmentName: !Ref EnvironmentName
+
+  # Nested Stack for Compute (ALB, ASG, EC2)
+  ComputeStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://poc-saicharan.s3.ap-south-1.amazonaws.com/compute.yaml
+      Parameters:
+        EnvironmentName: !Ref EnvironmentName
+        VpcId: !GetAtt VPCStack.Outputs.VpcId
+        PublicSubnet1: !GetAtt VPCStack.Outputs.PublicSubnet1
+        PublicSubnet2: !GetAtt VPCStack.Outputs.PublicSubnet2
+        InstanceType: !Ref InstanceType
+        KeyName: !Ref KeyName
+
+  # Nested Stack for RDS
+  RDSStack:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://poc-saicharan.s3.ap-south-1.amazonaws.com/rdsstack.yaml                 
+      Parameters:
+        EnvironmentName: !Ref EnvironmentName
+        VpcId: !GetAtt VPCStack.Outputs.VpcId
+        PrivateSubnet1: !GetAtt VPCStack.Outputs.PrivateSubnet1
+        PrivateSubnet2: !GetAtt VPCStack.Outputs.PrivateSubnet2
+        DBInstanceClass: !Ref DBInstanceClass
+        DBUsername: !Ref DBUsername
+        DBPassword: !Ref DBPassword
+        DBName: !Ref DBName
+
+Outputs:
+  S3BucketName:
+    Description: Name of the created S3 bucket
+    Value: !GetAtt S3Stack.Outputs.S3BucketName
+  LoadBalancerDNS:
+    Description: DNS name of the load balancer
+    Value: !GetAtt ComputeStack.Outputs.LoadBalancerDNS
+  DatabaseEndpoint:
+    Description: Endpoint of the RDS instance
+    Value: !GetAtt RDSStack.Outputs.DatabaseEndpoint

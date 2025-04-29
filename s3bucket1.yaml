@@ -1,0 +1,24 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: S3 Bucket Template
+
+Parameters:
+  EnvironmentName:
+    Type: String
+    Description: The environment name (e.g., production, dev)
+
+Resources:
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "${EnvironmentName}-bucket-${AWS::AccountId}"
+      AccessControl: Private
+      VersioningConfiguration:
+        Status: Enabled
+      Tags:
+        - Key: Name
+          Value: !Sub "${EnvironmentName}-bucket"
+
+Outputs:
+  S3BucketName:
+    Description: The name of the S3 bucket
+    Value: !Ref S3Bucket
