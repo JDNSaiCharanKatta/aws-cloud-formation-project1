@@ -2,6 +2,7 @@
 
 This project defines a complete AWS infrastructure using **nested CloudFormation stacks** to promote reusability, modularity, and clean architecture practices.
 
+
 ## 🏗️ Architecture Overview
 
 - **VPC Stack** – Creates a VPC, public/private subnets, and Internet Gateway.
@@ -30,13 +31,15 @@ This project defines a complete AWS infrastructure using **nested CloudFormation
 . ├── rootstack.yaml ├── vpcstack.yaml ├── compute.yaml ├── rdsstack.yaml └── s3bucket.yaml 
 
 
+## Note 
+
 Upload all templates to S3 and deploy the `rootstack.yaml` via the console or CLI. Provide required parameters like `DBPassword`, `KeyName`, etc.
 
 > 💡 Ensure DB password does not contain invalid characters like `/`, `@`, `"`, or spaces.
 
 
 
-## Output Screenshots
+## 📸 Screenshot Outputs
 
 
 ![image](https://github.com/user-attachments/assets/d90a8907-a8cd-4a89-aae2-a95b8c8cf140)
