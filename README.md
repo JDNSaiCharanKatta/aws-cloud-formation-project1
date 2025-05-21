@@ -3,10 +3,6 @@
 This project defines a complete AWS infrastructure using **nested CloudFormation stacks** to promote reusability, modularity, and clean architecture practices.
 
 
-## 🔍 Project Overview  
-I structured the infrastructure using nested CloudFormation stacks, each dedicated to a specific AWS service. This modular approach improves scalability, security, and maintainability.  
-
-
 ## ⚙️ Technologies Used
 
 - AWS CloudFormation (YAML)
