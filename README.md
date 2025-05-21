@@ -3,13 +3,9 @@
 This project defines a complete AWS infrastructure using **nested CloudFormation stacks** to promote reusability, modularity, and clean architecture practices.
 
 
-## 🏗️ Architecture Overview
+## 🔍 Project Overview  
+I structured the infrastructure using nested CloudFormation stacks, each dedicated to a specific AWS service. This modular approach improves scalability, security, and maintainability.  
 
-- **VPC Stack** – Creates a VPC, public/private subnets, and Internet Gateway.
-- **S3 Stack** – Creates a versioned, private S3 bucket for environment-specific storage.
-- **Compute Stack** – Sets up ALB, EC2 instances, Auto Scaling, and security groups.
-- **RDS Stack** – Provisions a MySQL RDS instance with private subnet group and secure credentials.
-- **Root Stack** – Orchestrates all above stacks with parameter passing and output consolidation.
 
 ## ⚙️ Technologies Used
 
@@ -31,14 +27,15 @@ This project defines a complete AWS infrastructure using **nested CloudFormation
 
 
 ## ⚡ Deployment Steps  
- 
-	-Upload all YAML templates to an S3 bucket.  
-	-Deploy rootstack.yaml via AWS Console or CLI.  
-	-Provide required parameters like:  
-	   KeyName for EC2 access  
-	   DBPassword (restricted characters for security)  
-	-The root stack orchestrates nested stacks automatically.  
-	-Monitor stack outputs such as ALB DNS, RDS endpoint, and S3 bucket name.  
+
+      Upload all YAML templates to an S3 bucket.  
+      Deploy rootstack.yaml via AWS Console or CLI.  
+      Provide required parameters like:  
+        KeyName for EC2 access  
+        DBPassword (restricted characters for security)  
+      The root stack orchestrates nested stacks automatically.  
+      Monitor stack outputs such as ALB DNS, RDS endpoint, and S3 bucket name.  
+
 
 
 
