@@ -17,8 +17,19 @@ Parameters:
   DBPassword:
     Type: String
     NoEcho: true
+    MinLength: 8
+    MaxLength: 41
+    AllowedPattern: "^[a-zA-Z0-9!@#$%^&*()_+=\\[\\]{}|;:,.<>?~-]+$"
+    ConstraintDescription: >-
+      Password must be 8–41 characters and may include letters, numbers, and these special characters:
+      ! @ # $ % ^ & * ( ) _ + = [ ] { } | ; : , . < > ? ~ -
+
   DBName:
     Type: String
+    AllowedPattern: "^[a-zA-Z][a-zA-Z0-9_]{0,63}$"
+    ConstraintDescription: >
+      DBName must start with a letter and contain only alphanumeric characters or underscores (no special characters).
+
 
 Resources:
   DBSecurityGroup:
