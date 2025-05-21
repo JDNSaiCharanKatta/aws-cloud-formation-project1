@@ -20,18 +20,25 @@ This project defines a complete AWS infrastructure using **nested CloudFormation
 - Amazon VPC
 
 
+## 📌 Architecture Diagram
+
+![image](https://github.com/user-attachments/assets/754de7a7-f9bd-4185-8431-8bf06cafa11a)
+
+
+
 ## 📁 Folder Structure
 . ├── rootstack.yaml ├── vpcstack.yaml ├── compute.yaml ├── rdsstack.yaml └── s3bucket.yaml 
 
 
 ## ⚡ Deployment Steps  
-	Upload all YAML templates to an S3 bucket.  
-	Deploy rootstack.yaml via AWS Console or CLI.  
-	Provide required parameters like:  
+ 
+	-Upload all YAML templates to an S3 bucket.  
+	-Deploy rootstack.yaml via AWS Console or CLI.  
+	-Provide required parameters like:  
 	   KeyName for EC2 access  
 	   DBPassword (restricted characters for security)  
-	The root stack orchestrates nested stacks automatically.  
-	Monitor stack outputs such as ALB DNS, RDS endpoint, and S3 bucket name.  
+	-The root stack orchestrates nested stacks automatically.  
+	-Monitor stack outputs such as ALB DNS, RDS endpoint, and S3 bucket name.  
 
 
 
