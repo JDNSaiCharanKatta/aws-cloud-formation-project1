@@ -28,7 +28,15 @@ I structured the infrastructure using nested CloudFormation stacks, each dedicat
 
 ## ⚡ Deployment Steps  
 
-      
+Upload all YAML templates to an S3 bucket.  
+Deploy rootstack.yaml via AWS Console or CLI.  
+Provide required parameters like:  
+KeyName for EC2 access  
+DBPassword (restricted characters for security)  
+The root stack orchestrates nested stacks automatically.  
+Monitor stack outputs such as ALB DNS, RDS endpoint, and S3 bucket name.  
+
+
 
 
 
