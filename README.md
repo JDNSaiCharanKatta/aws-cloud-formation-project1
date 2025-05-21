@@ -107,6 +107,8 @@ Upload all templates to S3 and deploy the `rootstack.yaml` via the console or CL
 
 ![image](https://github.com/user-attachments/assets/015b3feb-3d02-418c-93c6-c6dc33f8d500)
 
+
+
 ## ✅ What I Learned  
 - CloudFormation Nested Stacks – Improved infrastructure organization and automated deployments.  
 - Security Measures – Applied best practices to secure AWS services and minimize attack surfaces.  
@@ -116,4 +118,4 @@ Upload all templates to S3 and deploy the `rootstack.yaml` via the console or CL
 
 
 ## 📌 Conclusion  
-This project helped me refine AWS CloudFormation skills, security configurations, and deployment automation for scalable cloud infrastructure. 🚀  
+This project helped me refine AWS CloudFormation skills, security configurations, and deployment automation for scalable cloud infrastructure.  
